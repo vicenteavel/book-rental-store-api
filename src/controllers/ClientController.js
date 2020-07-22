@@ -16,7 +16,7 @@ module.exports = {
    },
 
    async create(req, res) {
-      const { name, email} = req.body;
+      const { name, email } = req.body;
 
       try {
          const [id] = await connection('clients').insert({ name, email });
@@ -33,7 +33,7 @@ module.exports = {
 
       const response = await connection('clients').where('id', id).update({ name, email });
 
-      return res.json({ id: response });
+      return res.json({ status: !!response });
    },
 
    async delete(req, res) {
@@ -43,9 +43,6 @@ module.exports = {
 
       const response = await connection('clients').where('id', id).delete();
 
-      const status = !!response ? 'Success' : 'Client does not exist';
-      
-      return res.json({ status  });
-
+      return res.json({ status: !!response });
    }
 }
