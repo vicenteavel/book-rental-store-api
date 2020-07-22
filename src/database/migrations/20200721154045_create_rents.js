@@ -10,7 +10,7 @@ exports.up = function(knex) {
       table.foreign('book_id').references('id').inTable('books')
 
       table.date('rented_at').notNullable();
-      table.date('rented_util').notNullable();
+      table.date('rented_until').notNullable();
    });
 };
 

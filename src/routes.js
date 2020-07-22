@@ -2,6 +2,8 @@ const express = require('express');
 
 const ClientController = require('./controllers/ClientController');
 const BookController = require('./controllers/BookController');
+const RentController = require('./controllers/RentController');
+const ReservationController = require('./controllers/ReservationController');
 
 const routes = express.Router();
 
@@ -22,7 +24,12 @@ routes.put('/book/:id', BookController.update);
 routes.delete('/book/:id', BookController.delete);
 
 
-// routes.get('/rents');
-// routes.get('/reservations');
+routes.get('/rents', RentController.index);
+routes.post('/rent/create', RentController.create);
+routes.delete('/rent/:id', RentController.delete);
+
+routes.get('/reservations', ReservationController.index);
+routes.post('/reservation/create', ReservationController.create);
+routes.delete('/reservation/:id', ReservationController.delete);
 
 module.exports = routes;
