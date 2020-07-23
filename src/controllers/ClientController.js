@@ -39,7 +39,8 @@ module.exports = {
    async delete(req, res) {
       const { id } = req.params;
 
-      // delete all the books rented and reserverd
+      await connection('rents').where('client_id', id).delete();
+      await connection('reservations').where('client_id', id).delete();
 
       const response = await connection('clients').where('id', id).delete();
 
