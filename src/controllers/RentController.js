@@ -4,8 +4,25 @@ const formatDate = require('../utils/formatDate');
 module.exports = {
    async index(req, res) {
       const rents = await connection('rents').select('*');
+      
+      const rentsSerialized = [];
+      
+      const promises = rents.map(async rent => {
+         const [client] = await connection('clients').where('id', rent.client_id);
+         const [book] = await connection('books').where('id', rent.book_id);
 
-      return res.json(rents);
+         rentsSerialized.push({
+            id: rent.id,
+            client,
+            book,
+            rented_at: rent.rented_at,
+            rented_until: rent.rented_until
+         });
+      });
+
+      await Promise.all(promises);
+
+      return res.json(rentsSerialized);
    },
 
    async create(req, res) {

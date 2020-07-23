@@ -4,7 +4,24 @@ module.exports = {
    async index(req, res) {
       const reservations = await connection('reservations').select('*');
 
-      return res.json(reservations);
+      const reservationsSerialized = [];
+      
+      const promises = reservations.map(async reservation => {
+         const [client] = await connection('clients').where('id', reservation.client_id);
+         const [book] = await connection('books').where('id', reservation.book_id);
+
+         reservationsSerialized.push({
+            id: reservation.id,
+            client,
+            book,
+            rented_at: reservation.rented_at,
+            rented_until: reservation.rented_until
+         });
+      });
+
+      await Promise.all(promises);
+
+      return res.json(reservationsSerialized);
    },
 
    async create(req, res) {
