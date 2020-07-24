@@ -1,6 +1,6 @@
 # Book Rental Store
 
-API REST for managing a store that rents books on Node.js.
+API REST for managing a store that rents books in Node.js.
 
 ## Technologies used
 
