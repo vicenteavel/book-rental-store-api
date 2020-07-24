@@ -14,8 +14,8 @@ module.exports = {
             id: reservation.id,
             client,
             book,
-            rented_at: reservation.rented_at,
-            rented_until: reservation.rented_until
+            reserved_at: reservation.reserved_at,
+            reserved_until: reservation.reserved_until
          });
       });
 

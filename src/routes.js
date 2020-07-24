@@ -7,10 +7,6 @@ const ReservationController = require('./controllers/ReservationController');
 
 const routes = express.Router();
 
-routes.get('/', (req, res) => {
-   return res.send('Hello World');
-});
-
 routes.get('/client/:id', ClientController.show);
 routes.get('/clients', ClientController.index);
 routes.post('/client/create', ClientController.create);
